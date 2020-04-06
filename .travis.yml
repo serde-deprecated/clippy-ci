@@ -6,12 +6,12 @@ script:
   - rustup component add clippy || travis_terminate 0
   - git clone https://github.com/serde-rs/serde
   - cd "${TRAVIS_BUILD_DIR}/serde/serde"
-  - cargo clippy --features rc,unstable -- -D clippy::all
+  - cargo clippy --features rc,unstable -- -D clippy::all -A clippy::redundant_field_names
   - cd "${TRAVIS_BUILD_DIR}/serde/serde_derive"
   - cargo clippy -- -D clippy::all
   - cd "${TRAVIS_BUILD_DIR}/serde/serde_test"
-  - cargo clippy -- -D clippy::all
+  - cargo clippy -- -D clippy::all -A clippy::redundant_field_names
   - cd "${TRAVIS_BUILD_DIR}/serde/test_suite"
-  - cargo clippy --tests --features unstable -- -D clippy::all
+  - cargo clippy --tests --features unstable -- -D clippy::all -A clippy::redundant_field_names
   - cd "${TRAVIS_BUILD_DIR}/serde/test_suite/no_std"
-  - cargo clippy -- -D clippy::all
+  - cargo clippy -- -D clippy::all -A clippy::redundant_field_names
