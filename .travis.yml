@@ -1,10 +1,16 @@
 language: rust
 
-rust: nightly
+install:
+  - CLIPPY_NIGHTLY=nightly-$(curl -s https://rust-lang.github.io/rustup-components-history/x86_64-unknown-linux-gnu/clippy)
+  - echo "Latest nightly with Clippy is $CLIPPY_NIGHTLY"
+  - rustup set profile minimal
+  - rustup default "$CLIPPY_NIGHTLY"
+  - rustup component add clippy
+
+before_script:
+  - git clone https://github.com/serde-rs/serde
 
 script:
-  - rustup component add clippy || travis_terminate 0
-  - git clone https://github.com/serde-rs/serde
   - cd "${TRAVIS_BUILD_DIR}/serde/serde"
   - cargo clippy --features rc,unstable -- -D clippy::all -A clippy::redundant_field_names
   - cd "${TRAVIS_BUILD_DIR}/serde/serde_derive"
