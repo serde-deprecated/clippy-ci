@@ -11,6 +11,8 @@ before_script:
   - git clone https://github.com/serde-rs/serde
 
 script:
+    # The need for -Aredundant_field_names here is a Clippy bug.
+    # https://github.com/rust-lang/rust-clippy/issues/5356
   - cd "${TRAVIS_BUILD_DIR}/serde/serde"
   - cargo clippy --features rc,unstable -- -D clippy::all -A clippy::redundant_field_names
   - cd "${TRAVIS_BUILD_DIR}/serde/serde_derive"
